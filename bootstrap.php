@@ -4,6 +4,7 @@
 
   use Doctrine\ORM\Tools\Setup;
   use Doctrine\ORM\EntityManager;
+  use Psr7Middlewares\Middleware\TrailingSlash;
 
   /**
    * Configurações
@@ -60,4 +61,41 @@
    * Coloca o Entity manager do container com o nome de em (Entity Manager)
    */
   $container['em'] = $entityManager;
+  
+  /**
+   * Serviço de Logging em Arquivo
+   * 
+   */
+  $container['logger'] = function($container){
+    $logger = new Monolog\Logger('books-microservice');
+    $logfile = __DIR__ . '/logs/books-microservice.log';
+    $stream = new Monolog\Handler\StreamHandler($logfile, Monolog\Logger::DEBUG);
+    $fingersCrossed = new Monolog\Handler\FingersCrossedHandler($stream, Monolog\Logger::INFO);
+    $logger->pushHandler($fingersCrossed);
+
+    return $logger;
+  };
+
+  /**
+   * Convert os Exceptions de Erros 405 - Not Allowed
+   */
+  $container['notAllowedHandler'] = function($c){
+    return function($request, $response, $methods) use ($c) {
+        return $c['response']
+          ->withStatus(405)
+          ->withHeader('Allow', implode(', ', $methods))
+          ->withHeader('Content-Type', 'Application/json')
+          ->withHeader('Access-Control-Allow-Methods', implode(', ', $methods))
+          ->withJson(['message' => 'Method not Allowed; Method must be one of: ' .implode(', ', $methods)], 405);
+
+    };
+  };
+
   $app = new \Slim\App($container);
+
+  /**
+   * @Middleware Tratamento da / do Request
+   * true - Adiciona a / no final da URL
+   * false - Remove a / no final da URL
+   */
+  $app->add(new TrailingSlash(false));
