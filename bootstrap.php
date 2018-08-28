@@ -37,4 +37,4 @@
    * Coloca o Entity manager do container com o nome de em (Entity Manager)
    */
   $container['em'] = $entityManager;
-  $app = new \Slim\App;
+  $app = new \Slim\App($container);
