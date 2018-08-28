@@ -12,19 +12,19 @@
   	 * @Id @Column(type="integer")
   	 * @GeneratedValue
   	 */
-  	protected $id;
+  	public $id;
 
   	/**
   	 * @var string 
   	 * @Column(type="string")
   	 */
-   	protected $name;
+   	public $name;
 
   	/**
   	 * @var string 
   	 * @Column(type="string")
   	 */
-   	protected $author;
+   	public $author;
 
    	public function getId(){
    		return $this->id;
@@ -38,12 +38,26 @@
    		return $this->author;
    	}	
 
+    /**
+     * @return  App\Models\Entity\Book
+     */
    	public function setName($name){
+      if(!$name && !is_string($name)){
+        throw new \InvalidArgumentException("Book name is required", 400);        
+      }
+
    		$this->name = $name;
    		return $this;
    	}	
 
+    /**
+     * @return  App\Models\Entity\Book
+     */
    	public function setAuthor($author){
+      if(!$author && !is_string($author)){
+        throw new \InvalidArgumentException("Author is required", 400);
+      }
+
    		$this->author = $author;
    		return $this;
    	}	

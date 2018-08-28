@@ -1,7 +1,18 @@
 <?php
   
+  require 'vendor/autoload.php';
+
   use Doctrine\ORM\Tools\Setup;
   use Doctrine\ORM\EntityManager;
+
+  /**
+   * Configurações
+   */
+  $configs = [
+      'settings' => [
+          'displayErrorDetails' => true,
+      ],
+  ];
 
   /*
    * Container Resources do Slim
@@ -9,9 +20,21 @@
    * da nossa aplicação que vão ser consumidas durante a execução
    * da nossa API
    */
-  require 'vendor/autoload.php';
 
-  $container = new \Slim\Container();
+  $container = new \Slim\Container($configs);
+
+
+  /**
+   * Converte os Exceptions dentro da Aplicação em respostas JSON
+   */
+  $container['errorHandler'] = function ($c){
+    return function ($request, $response, $exception) use ($c){
+      $statusCode = $exception->getCode() ? $exception->getCode() : 500;
+      return $c['response']->withStatus($statusCode)
+          ->withHeader('Content-Type', 'Application/json')
+          ->withJson(['message' => $exception->getMessage()], $statusCode);
+    };
+  };
 
   $isDevMode = true;
 
