@@ -119,7 +119,7 @@
     return $logger;
   };
 
-  isDevMode = true;
+  $isDevMode = true;
 
   
   /**

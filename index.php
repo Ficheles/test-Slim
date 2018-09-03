@@ -151,7 +151,7 @@ $app->put('/book/{id}', function (Request $request, Response $response) use ($ap
     $entityManager->persist($book);
     $entityManager->flush();        
 
-    $logger->info("Book {$id} updated!")
+    $logger->info("Book {$id} updated!");
     $return = $response->withJson($book, 200)
         ->withHeader('Content-type', 'application/json');
     return $return;
