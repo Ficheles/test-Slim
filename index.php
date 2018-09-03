@@ -5,7 +5,31 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 use App\Models\Entity\Book;
 
+use Firebase\JWT\JWT;
+
 require 'bootstrap.php';
+
+/**
+ * HTTP Auth - Autenticação minimalista para retornar um JWT
+ */
+
+$app->get('/auth', function(Request $request, Response $response) use($app){
+	
+	$key = $this->get("secretkey");
+
+	$token = array(
+		"user" => "@fidelissauro",
+		"twitter" => "https://twitter.com/fidelissauro",
+		"github" => "https://github.com/msfidelis"
+	);
+
+	$jwt = JWT::encode($token, $key);
+
+	//return $response->withJson(["status" => "Autenticado!"], 200)
+	//	->withHeader('Content-type', 'application/json');
+	return $response->withJson(["auth-jwt" => $jwt], 200)
+		->withHeader('Content-type', 'application/json');
+});
 
 /**
  * Lista de todos os livros
@@ -38,6 +62,8 @@ $app->get('/book/{id}', function (Request $request, Response $response) use ($ap
      * Verifica se existe um livro com a ID informada
      */
     if(!$book){
+    	$logger = $this->get('logger');
+    	$logger->warning("Book {$id} Not Found");
     	throw new \Exception("Book not Found", 404);
     }
 
@@ -101,9 +127,15 @@ $app->put('/book/{id}', function (Request $request, Response $response) use ($ap
     $book = $booksRepository->find($id);   
 
     /**
+     * Monolog Logget
+     */
+    $logger = $this->get('logger');
+    
+    /**
      * Verifica se existe um livro no a ID informada
      */
     if(!$book){
+    	$logger->warning("Book {$id} Not Found - Impossible to Update");
     	throw new \Exception("Book not Found", 404);
     }
 
@@ -119,7 +151,7 @@ $app->put('/book/{id}', function (Request $request, Response $response) use ($ap
     $entityManager->persist($book);
     $entityManager->flush();        
 
-    
+    $logger->info("Book {$id} updated!")
     $return = $response->withJson($book, 200)
         ->withHeader('Content-type', 'application/json');
     return $return;
@@ -137,6 +169,11 @@ $app->delete('/book/{id}', function (Request $request, Response $response) use (
     $id = $route->getArgument('id');
 
     /**
+     * Monolog Logger
+     */
+    $logger = $this->get('logger');
+
+    /**
      * Encontra o Livro no Banco
      */ 
     $entityManager = $this->get('em');
@@ -147,8 +184,8 @@ $app->delete('/book/{id}', function (Request $request, Response $response) use (
      * Verifica se existe um livro com a ID informada
      */
     if(!$book){
-    	throw new \Exception("Book not Found", 404);
-    	
+    	$logger->info("Book {$id} not Found");
+    	throw new \Exception("Book not Found", 404);    	
     }
 
     /**
