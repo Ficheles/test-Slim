@@ -8,6 +8,7 @@
   use Monolog\Logger;
   use Firebase\JWT\JWT;
 
+
   /**
    * Configurações
    */
@@ -17,73 +18,35 @@
       ],
   ];
 
+
   /*
    * Container Resources do Slim
    * Aqui dentro dele vamos carregar todas as dependencias
    * da nossa aplicação que vão ser consumidas durante a execução
    * da nossa API
    */
-
   $container = new \Slim\Container($configs);
 
 
   /**
    * Converte os Exceptions dentro da Aplicação em respostas JSON
    */
-  $container['errorHandler'] = function ($c){
-    return function ($request, $response, $exception) use ($c){
+  $container['errorHandler'] = function ($container){
+    return function ($request, $response, $exception) use ($container){
       $statusCode = $exception->getCode() ? $exception->getCode() : 500;
-      return $c['response']->withStatus($statusCode)
+      return $container['response']->withStatus($statusCode)
           ->withHeader('Content-Type', 'Application/json')
           ->withJson(['message' => $exception->getMessage()], $statusCode);
     };
   };
 
-  $isDevMode = true;
-
-  /*
-   * Diretório de Entidades e Metadados do Doctrine
-   */
-  $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src/Models/Entity"), $isDevMode);
   
-  /*
-   * Array de configurações da nossa conexão com o banco
-   */
-  $conn = array(
-  	'driver' => 'pdo_sqlite',
-  	'path' => __DIR__ . '/db.sqlite',
-  );
-
-  /*
-   * Instância do Entity Manager
-   */
-  $entityManager = EntityManager::create($conn, $config);
-
-  /*
-   * Coloca o Entity manager do container com o nome de em (Entity Manager)
-   */
-  $container['em'] = $entityManager;
-  
-  /**
-   * Serviço de Logging em Arquivo
-   * 
-   */
-  $container['logger'] = function($container){
-    $logger = new Monolog\Logger('books-microservice');
-    $logfile = __DIR__ . '/logs/books-microservice.log';
-    $stream = new Monolog\Handler\StreamHandler($logfile, Monolog\Logger::DEBUG);
-    $fingersCrossed = new Monolog\Handler\FingersCrossedHandler($stream, Monolog\Logger::INFO);
-    $logger->pushHandler($fingersCrossed);
-
-    return $logger;
-  };
-
   /**
    * Convert os Exceptions de Erros 405 - Not Allowed
    */
-  $container['notAllowedHandler'] = function($c){
-    return function($request, $response, $methods) use ($c) {
-        return $c['response']
+  $container['notAllowedHandler'] = function($container){
+    return function($request, $response, $methods) use ($container) {
+        return $container['response']
           ->withStatus(405)
           ->withHeader('Allow', implode(', ', $methods))
           ->withHeader('Content-Type', 'Application/json')
@@ -92,6 +55,7 @@
 
     };
   };
+
 
   /**
    * Convert os Exceptions de Erros 404 - Hot Found
@@ -103,15 +67,16 @@
           ->withHeader('Content-Type', 'Application/json')
           ->withJson(['message' => 'Page not found']);
     };
-
   };
 
+
   /**
-   * Serviço de loggin em Arquivo
+   * Serviço de Logging em Arquivo
+   * 
    */
   $container['logger'] = function($container){
     $logger = new Monolog\Logger('books-microservice');
-    $logfile = __DIR__ . '/logs/books-microservice.log';
+    $logfile = __DIR__ . '/log/books-microservice.log';
     $stream = new Monolog\Handler\StreamHandler($logfile, Monolog\Logger::DEBUG);
     $fingersCrossed = new Monolog\Handler\FingersCrossedHandler($stream, Monolog\Logger::INFO);
     $logger->pushHandler($fingersCrossed);
@@ -119,33 +84,35 @@
     return $logger;
   };
 
+  
   $isDevMode = true;
 
-  
-  /**
-   * Diretório de Entidade e Metadada do Doctrine
+  /*
+   * Diretório de Entidades e Metadados do Doctrine
    */
   $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src/Models/Entity"), $isDevMode);
+  
 
-  /**
+  /*
    * Array de configurações da nossa conexão com o banco
    */
   $conn = array(
-      'driver' => 'pdo_sqlite',
-      'path' => __DIR__.'/db.sqlite',
+  	'driver' => 'pdo_sqlite',
+  	'path' => __DIR__ . '/db.sqlite',
   );
 
-  /**
+
+  /*
    * Instância do Entity Manager
    */
   $entityManager = EntityManager::create($conn, $config);
 
 
-  /**
-   * Coloca o Entity manager dentro do Container com o nome de em (Entity Manager)
+  /*
+   * Coloca o Entity manager do container com o nome de em (Entity Manager)
    */
   $container['em'] = $entityManager;
-
+  
 
   /**
    * Token do nosso JWT
@@ -155,12 +122,14 @@
 
   $app = new \Slim\App($container);
 
+
   /**
    * @Middleware Tratamento da / do Request
    * true - Adiciona a / no final da URL
    * false - Remove a / no final da URL
    */
   $app->add(new TrailingSlash(false));
+
 
   /**
    * Auth básica HTTP
@@ -194,7 +163,7 @@
     "regexp" => "/(.*)/", //Regex para encontrar o Token nos Headers - Livre
     "header" => "X-Token", //O Header que vai conter o token
     "path" => "/", //Vamos cobrir toda a API a partir do /
-    "passthrough" => ["/auth"], //Vamos adicionar a exceção de cobertura a rota /auth
+    "passthrough" => ["/auth", "/v1/auth"], //Vamos adicionar a exceção de cobertura a rota /auth
     "realm" => "Protected",
     "secret" => $container['secretkey'] //Nosso secretkey criado
   ]));
