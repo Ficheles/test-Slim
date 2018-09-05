@@ -1,0 +1,8 @@
+[2018-09-05 03:02:41] books-microservice.INFO: Book Created! {"id":null,"name":"Livro Excel","author":"Fulando"} []
+[2018-09-05 00:11:58] books-microservice.INFO: Book Created! {"id":null,"name":"Livro Excel 2","author":"Fulando"} []
+[2018-09-05 00:13:37] books-microservice.INFO: Book Created! {"id":null,"name":"Livro PHP","author":"Ciclano"} []
+[2018-09-05 00:15:53] books-microservice.INFO: Book Created! {"id":null,"name":"Livro PHP 3","author":"Ciclano"} []
+[2018-09-05 00:16:44] books-microservice.INFO: Book Created! {"id":null,"name":"Livro PHP 3","author":"Ciclano"} []
+[2018-09-05 00:19:38] books-microservice.INFO: Book Created! {"id":null,"name":"Livro PHP 7.2","author":"Fulano"} []
+[2018-09-05 01:18:43] books-microservice.INFO: Book Created! {"id":null,"name":"Livro PHP","author":"Ciclano"} []
+[2018-09-05 01:25:07] books-microservice.INFO: Book Created! {"id":null,"name":"Livro Excel","author":"Fulando"} []

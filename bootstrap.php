@@ -76,7 +76,7 @@
    */
   $container['logger'] = function($container){
     $logger = new Monolog\Logger('books-microservice');
-    $logfile = __DIR__ . '/log/books-microservice.log';
+    $logfile = __DIR__ . '/logs/books-microservice.log';
     $stream = new Monolog\Handler\StreamHandler($logfile, Monolog\Logger::DEBUG);
     $fingersCrossed = new Monolog\Handler\FingersCrossedHandler($stream, Monolog\Logger::INFO);
     $logger->pushHandler($fingersCrossed);
