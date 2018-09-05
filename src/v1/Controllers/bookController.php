@@ -126,7 +126,7 @@ class BookController{
 		$return = $response->withJson($book, 200)
 				->withHeader('Content-Type', 'application/json');
 
-		return $return;		
+		return $return;
 	}
 
 	/**
@@ -188,7 +188,7 @@ class BookController{
 		/**
 		 * Encotra o Livro no Banco
 		 */
-		$entityManager = $this->container-get('em');
+		$entityManager = $this->container->get('em');
 		$bookRepository = $entityManager->getRepository('App\Models\Entity\Book');
 		$book = $bookRepository->find($id);
 
@@ -196,7 +196,7 @@ class BookController{
 		 * Verifica se existe um livro com a ID informada
 		 */
 		if(!$book){
-			$logger = $this->container-get('logger');
+			$logger = $this->container->get('logger');
 			$logger->warning("Book {$id} not Found");
 			throw new \Exception("Book not Found", 404);		
 		}
@@ -205,10 +205,12 @@ class BookController{
 		 * Remove a entidade
 		 */
 		$entityManager->remove($book);
-		$entityManager->fush();
+		$entityManager->flush();
 
-		$return = $response->withJson(['msg' => "Deletando o livro {$id}"], 204)
-				->withHeader('Content-Type', 'application/json');
+		//$return = $response->withJson(['msg' => "Deletando o livro {$id}"], 200)
+        //    ->withHeader('Content-type', 'application/json');
+
+        $return = $response->withJson(null, 204);
 
 		return $return;		
 	}
