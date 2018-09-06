@@ -145,7 +145,7 @@
       /**
        * Blacklist - Deixa todas liberadas e so protegeas dentro do array
        */
-      "path" => ["/auth"],
+      "path" => ["/auth", "/v1/auth"],
 
       /**
        * Whitelist - Protege todas as rotas e so libera as de dentro do array
