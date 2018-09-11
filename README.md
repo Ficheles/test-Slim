@@ -24,3 +24,6 @@
 * [Gist Auth](https://packagist.org/packages/tuupola/slim-basic-auth)
 
 * [Auth from DB](http://www.appelsiini.net/2014/slim-database-basic-authentication)
+
+*Dica*
+[.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
