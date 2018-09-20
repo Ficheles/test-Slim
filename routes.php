@@ -21,6 +21,21 @@ $app->group('/v1', function() {
     });
 
     /**
+     * Dentro de v1, o recurso /book
+     */
+    $this->group('/ticket', function() {
+        $this->get('', '\App\v1\Controllers\TicketController:listTicket');
+        $this->post('', '\App\v1\Controllers\TicketController:createTicket');
+        
+        /**
+         * Validando se tem um integer no final da URL
+         */
+        $this->get('/{id:[0-9]+}', '\App\v1\Controllers\TicketController:viewTicket');
+        $this->put('/{id:[0-9]+}', '\App\v1\Controllers\TicketController:updateTicket');
+        $this->delete('/{id:[0-9]+}', '\App\v1\Controllers\TicketController:deleteTicket');
+    });
+
+    /**
      * Dentro de v1, o recurso /auth
      */
     $this->group('/auth', function() {
