@@ -26,6 +26,7 @@
 * [Slim-FW:04](https://medium.com/@fidelissauro/slim-framework-criando-microservices-04-crud-completo-via-api-com-doctrine-13e839432610) Crud completo via API
 	* $ curl -X GET http://localhost/book
 	* $ curl -X GET http://localhost/book/1
+	* $ curl -X POST http://localhost:8000/book -H "Content-type: application/json" -d '{"name":"Deuses Americanos Versão 2", "author":"Neil Gaiman"}'
 	* $ curl -X PUT http://localhost:8000/book/2 -H "Content-type: application/json" -d '{"name":"Deuses Americanos Versão 2", "author":"Neil Gaiman"}'
 	* $ curl -X DELETE http://localhost:8000/book/3
 
