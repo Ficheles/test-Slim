@@ -42,7 +42,7 @@
      * @var string <Principal programa relacionado ao processo, base para validação>
      * @Column(type="string")
      */
-    protected $template
+    protected $template;
 
     /**
      * @var string <Area de negocios ou departmento>
