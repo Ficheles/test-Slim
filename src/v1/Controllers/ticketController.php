@@ -46,7 +46,7 @@ class TicketController{
         /**
          * Retorna dados da consulta
          */
-         foreach ($ticketRepository->findAll() as $ticket){
+        foreach ($ticketRepository->findAll() as $ticket){
             $tickets[] = $ticket->getValues();  // para acessar as propriedades do tickets
         }   
         
@@ -128,7 +128,7 @@ class TicketController{
             throw new \Exception("Ticket not Found", 404);
         }
 
-        $return = $response->withJson($ticket->getValues(), 200)
+        $return = $response->withJson($ticket, 200)
                 ->withHeader('Content-Type', 'application/json');
 
         return $return;
