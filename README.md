@@ -64,6 +64,8 @@
 
 * [Doctrine ORM](https://www.webdevbr.com.br/instalando-o-doctrine-orm-como-criar-um-crud-com-php)
 
+* [ORM DOCs](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/annotations-reference.html#annref_column) Doctrine Documentação (annotations reference)
+
 * [json API](https://jsonplaceholder.typicode.com/)
 
 *Dica*
