@@ -36,6 +36,21 @@ $app->group('/v1', function() {
     });
 
     /**
+     * Dentro de v1, o recurso /stage
+     */
+    $this->group('/stage', function() {
+        $this->get('', '\App\v1\Controllers\StageController:listStage');
+        $this->post('', '\App\v1\Controllers\StageController:createStage');
+        
+        /**
+         * Validando se tem um integer no final da URL
+         */
+        $this->get('/{id:[0-9]+}', '\App\v1\Controllers\StageController:viewStage');
+        $this->put('/{id:[0-9]+}', '\App\v1\Controllers\StageController:updateStage');
+        $this->delete('/{id:[0-9]+}', '\App\v1\Controllers\StageController:deleteStage');
+    });
+
+    /**
      * Dentro de v1, o recurso /auth
      */
     $this->group('/auth', function() {
