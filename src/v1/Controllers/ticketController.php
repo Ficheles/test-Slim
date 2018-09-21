@@ -46,14 +46,17 @@ class TicketController{
         /**
          * Retorna dados da consulta
          */
-        $tickets = $ticketRepository->findAll();
-
+         foreach ($ticketRepository->findAll() as $ticket){
+            $tickets[] = $ticket->getValues();  // para acessar as propriedades do tickets
+        }   
+        
         /**
          * 
          */
         $return = $response->withJson($tickets, 200)
                 ->withHeader('Content-Type', 'application/json');
         return $return;
+
     }
     
     /**
@@ -74,13 +77,11 @@ class TicketController{
         /**
          * Instância da nossa Entidade preenchida com nossos parametros do post
          */
-        //$ticket = (new Ticket())->setName($params->name)
-        //      ->setAuthor($params->author);
-
+        
         $ticket = (new Ticket())->setCod($request->getParam('code'))
-                               ->setOld($request->getParam('old'))
+                                ->setOld($request->getParam('old'))
                                 ->setProgram($request->getParam('program'))
-                                ->setNameProgram($request->getParam('program_bio'))
+                                ->setTemplate($request->getParam('program_bio'))
                                 ->setDepartment($request->getParam('department'))
                                 ->setSubject($request->getParam('subject'));
 
@@ -127,7 +128,7 @@ class TicketController{
             throw new \Exception("Ticket not Found", 404);
         }
 
-        $return = $response->withJson($ticket, 200)
+        $return = $response->withJson($ticket->getValues(), 200)
                 ->withHeader('Content-Type', 'application/json');
 
         return $return;
@@ -166,7 +167,7 @@ class TicketController{
         $ticket->setCod($request->getParam('code'))
                ->setOld($request->getParam('old'))
                ->setProgram($request->getParam('program'))
-               ->setNameProgram($request->getParam('program_bio'))
+               ->setTemplate($request->getParam('program_bio'))
                ->setDepartment($request->getParam('department'))
                ->setSubject($request->getParam('subject'));
 
