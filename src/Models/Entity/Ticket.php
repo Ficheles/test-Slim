@@ -16,46 +16,49 @@
 
     /**
      * @var int <Campo para codigo do chamado no JIRA>
-     * @cod @Column(type="integer")
+     * @cod @Column(type="integer", options={"comment":"Campo para codigo do chamado no JIRA"})
      */
     protected $cod;
 
     /**
-     * @var int <Campo quando o chamado atual tem outro codigo associado>
-     * @old @Column(type="integer")
+     * @var int <Codigo associado a outro sistema>
+     * @old @Column(type="integer", nullable=true, options={"comment":"Codigo associado a outro sistema"})
      */
     protected $old;
 
     /**
      * @var string <Nome do programa ao qual o chamado esta registrado>
-     * @Column(type="string")
+     * @Column(type="string", length=20, nullable=false, options={"comment":"Nome do programa ao qual o chamado esta registrado"})
      */
     protected $program;
 
-    /**
-     * @var string <Nome do programa de referencia, para a abertura do chamado>
-     * @Column(type="string")
-     */
-    protected $name_program;
 
     /**
      * @var string <Principal programa relacionado ao processo, base para validação>
-     * @Column(type="string")
+     * @Column(type="string", length=32, nullable=true, options={"comment":"Principal programa relacionado ao processo, base para validação"})
      */
     protected $template;
 
     /**
      * @var string <Area de negocios ou departmento>
-     * @Column(type="string")
+     * @Column(type="string", length=30, nullable=false, options={"comment":"Area de negocios ou departmento"})
      */
     protected $department;
 
     /**
      * @var string <Assunto de abertura do chamado>
-     * @Column(type="string")
+     * @Column(type="string", length=150, nullable=false, options={"comment":"Assunto de abertura do chamado"})
      */
     public $subject;
 
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param int $id
@@ -138,29 +141,7 @@
         return $this;
     }
 
-    /**
-     * @return App\Models\Entity\Ticket string <Nome do programa de referencia, para a abertura do chamado>
-     */
-    public function getNameProgram()
-    {
-        return $this->name_program;
-    }
-
-    /**
-     * @param App\Models\Entity\Ticket string <Nome do programa de referencia, para a abertura do chamado> $name_program
-     *
-     * @return self
-     */
-    public function setNameProgram($name_program)
-    {
-        if(!$name_program && !is_string($name_program)){
-          throw new \InvalidArgumentException("Ticket name_program is required", 400);        
-        }
-        $this->name_program = $name_program;
-
-        return $this;
-    }
-
+    
     /**
      * @return App\Models\Entity\Ticket string <Area de negocios ou departmento>
      */
@@ -208,6 +189,26 @@
 
         return $this;
     }
+   
+    /**
+     * @return string <Principal programa relacionado ao processo, base para validação>
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string <Principal programa relacionado ao processo, base para validação> $template
+     *
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
 
     /**
      * @return App\Models\Entity\Ticket Array <Retona array contendo os valores de todos atributos>
@@ -215,4 +216,5 @@
     public function getValues() {
         return get_object_vars($this);
     }
+    
 }

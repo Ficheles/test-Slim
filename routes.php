@@ -21,7 +21,7 @@ $app->group('/v1', function() {
     });
 
     /**
-     * Dentro de v1, o recurso /book
+     * Dentro de v1, o recurso /ticket
      */
     $this->group('/ticket', function() {
         $this->get('', '\App\v1\Controllers\TicketController:listTicket');
