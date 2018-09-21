@@ -46,9 +46,10 @@ class StageController{
         /**
          * Retorna dados da consulta
          */
-        foreach ($stageRepository->findAll() as $stagekey => $value) {
-            $stages[] = $stage->getValues();
-        }
+        // foreach ($stageRepository->findAll() as $stage){
+        //     $stages[] = $stage->getValues();  // para acessar as propriedades do tickets
+        // }  
+        $stages = $stageRepository->findAll();
         /**
          * 
          */
