@@ -68,6 +68,8 @@
 
 * [json API](https://jsonplaceholder.typicode.com/)
 
+* [table-edit](https://markcell.github.io/jquery-tabledit/#examples)
+
 *Dica*
 [.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
 
