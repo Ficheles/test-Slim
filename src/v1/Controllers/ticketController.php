@@ -46,6 +46,7 @@ class TicketController{
         /**
          * Retorna dados da consulta
          */
+        $tickets = [];
         foreach ($ticketRepository->findAll() as $ticket){
             $tickets[] = $ticket->getValues();  // para acessar as propriedades do tickets
         }   

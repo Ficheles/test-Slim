@@ -74,4 +74,4 @@
 [.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
 [git Flow](http://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
 [Branch Git](https://nvie.com/posts/a-successful-git-branching-model/)
-
+[charset utf8](https://www.fileformat.info/info/charset/UTF-8/list.htm)
