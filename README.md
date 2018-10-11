@@ -72,4 +72,6 @@
 
 *Dica*
 [.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
+[git Flow](http://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
+[Branch Git](https://nvie.com/posts/a-successful-git-branching-model/)
 
