@@ -73,4 +73,5 @@
 *Dica*
 [.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
 [charset utf8](https://www.fileformat.info/info/charset/UTF-8/list.htm)
+[FlexBox](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
 
