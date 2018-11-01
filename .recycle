@@ -17,6 +17,7 @@ curl -X GET http://localhost:8000/v1/stage -H "Content-type: application/json;ch
      -H "X-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQGZpZGVsaXNzYXVybyIsInR3aXR0ZXIiOiJodHRwczpcL1wvdHdpdHRlci5jb21cL2ZpZGVsaXNzYXVybyIsImdpdGh1YiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9tbXNmaWRlbGlzIn0.XUQnRUb5E7_BA7XXo7-5y_08KxuS3apX7U4Jnkmp3Go"
 
 
+https://www.skoob.com.br/livro/pdf/vuejs-construa-aplicacoes-incriveis/livro:673535/edicao:675553
 
 Character 	Description 	Encoded Byte
 ! 	EXCLAMATION MARK (U+0021) 	21
