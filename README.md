@@ -70,6 +70,10 @@
 
 * [table-edit](https://markcell.github.io/jquery-tabledit/#examples)
 
+* Links Twig
+	* [Twig 1](http://www.diegobrocanelli.com.br/php/twig-a-super-engine-template-para-php/)
+	* [Twig 2](http://www.devfuria.com.br/php/introducao-ao-twig-template/)
+
 *Dica*
 [.gitignore](https://gist.github.com/kelvinst/7d508da482d13bb301c9)
 [git Flow](http://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
