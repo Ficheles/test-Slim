@@ -22,7 +22,7 @@
 	* $ touch bootstrap.php
 	* $ mkdir -p src/Models/Entity
 	* $ composer require doctrine/orm
-	* $ vendor/bin/doctrine orm:schema-tool:update --force
+	* $ vendor/bin/doctrine orm:schema-tool:update --force --complete --dump-sql
 * [Slim-FW:04](https://medium.com/@fidelissauro/slim-framework-criando-microservices-04-crud-completo-via-api-com-doctrine-13e839432610) Crud completo via API
 	* $ curl -X GET http://localhost/book
 	* $ curl -X GET http://localhost/book/1
